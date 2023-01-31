@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense } from 'react';
+import {Route, Routes}from'react-router-dom'
+import MainLayout from './layouts/MainLayout';
+import Main from './pages/Main';
+
+import './scss/components/_all.scss'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+        <Route path="" element={<Main/>} />
+        <Route
+          path="cart"
+          element={
+            <Suspense fallback={<div>Идёт загрузка корзины...</div>}>
+              <h1>WORK</h1>
+            </Suspense>
+          }
+        />
+        <Route
+          path="pizza/:id"
+          element={
+            <Suspense fallback={<div>Идёт загрузка...</div>}>
+              <h1>WORK</h1>
+            </Suspense>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <Suspense fallback={<div>Идёт загрузка...</div>}>
+              <h1>WORK</h1>
+            </Suspense>
+          }
+        />
+      </Route>
+    </Routes>
+  )}
 
 export default App;

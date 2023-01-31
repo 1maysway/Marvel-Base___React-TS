@@ -1,0 +1,15 @@
+@import '../variables';
+#main_page {
+    width: 100%;
+    background-color: $white;
+    #main_page_first_banner {
+        height: 500px;
+        width: 100%;
+        background-color: $black;
+    }
+    #main_page_rec_comics {
+        // background-color: red;
+        // height: 500px;
+        // border: 1px solid $black;
+    }
+}

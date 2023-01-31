@@ -1,0 +1,75 @@
+@import '../variables';
+.header {
+    //height: 100px;
+    @media (min-width: 900px) {
+        height: 80px;
+    }
+    .container {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: $black;
+        @media (max-width: 645px) {
+            flex-direction: column;
+            .header__cart {
+                margin-top: 20px;
+            }
+        }
+    }
+    .logo_grid_item {
+        a {
+            display: inline-block;
+            height: 100%;
+            background-color: $red;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            &:hover {
+                .logo_text {
+                    //background-color: $white;
+                    //color: $red;
+                    transform: translateY(20px);
+                }
+            }
+            .logo_text {
+                padding: 0 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: $white;
+                transition: all 0.3s ease;
+                margin: 0;
+            }
+        }
+    }
+    .header_buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+    .grid_item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: 100%;
+        .grid_item_inner {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            a {
+                color: $white
+            }
+            &:hover {
+                border-bottom: 4px solid $red;
+                border-top: 4px solid $red;
+                a {
+                    //color: $red
+                }
+            }
+        }
+    }
+}
