@@ -1,11 +1,12 @@
-import { Grid } from "@mui/material";
-import React from "react";
+import { Box, CircularProgress, Container, Grid } from "@mui/material";
+import React, { useEffect, useState } from 'react';
+import { isMobile } from "react-device-detect";
 import { Link, To } from "react-router-dom";
 import { ColSize } from "../types/Types";
 
 
 
-type CardProps={
+export type CardProps={
     image:string;
     title?:string;
     subText?:string;
@@ -14,20 +15,21 @@ type CardProps={
     height?:ColSize;
 }
 
-type CardsProps={
+export type CardsProps={
     cards:CardProps[];
-    spacing?:number;
+    spacing?:number|string;
     cardsCol?:ColSize;
     cardsHeight?:ColSize;
+    moreButton?:{
+        text:string;
+        action:string|(()=>void);
+    }|null;
 }
 
 
 export const Card: React.FC<CardProps>=({col,image,title,subText,link={},height={xs:350}})=>{
-    console.log(height);
-    
-    //height={height}
     return(
-        <Grid item {...col}  className='card'>
+        <Grid item {...col} minHeight={height} className='card'>
             <Link to={link} className='link'>
                 <div className='card_inner'>
                     <div className="image_container">
@@ -50,13 +52,47 @@ export const Card: React.FC<CardProps>=({col,image,title,subText,link={},height=
 }
 
 
-const Cards: React.FC<CardsProps> = ({cards,spacing=0,cardsCol,cardsHeight}) => {
+const Cards: React.FC<CardsProps> = ({cards,spacing=0,cardsCol,cardsHeight,moreButton}) => {
+
+
+    const [isCardsLoading,setIsCardsLoading]=useState<boolean>(false);
+
+    useEffect(()=>{
+        setIsCardsLoading(false);
+    },[cards])
+
+    if(cards.length===0){
+        return(
+            <Box className='preload' marginTop={"100px"}><CircularProgress color='error'/></Box>
+        )
+    }
+
     return (
-      <Grid container spacing={spacing} className='cards' overflow='hidden' direction='row' wrap="nowrap">
-        {cards.map((card,i)=>{return(
-            <Card key={i} col={cardsCol} height={cardsHeight} {...card}/>
-        )})}
-      </Grid>
+      <Box className='cards'>
+            <Grid container spacing={spacing} className='cards_inner'>
+                {cards.map((card,i)=>{return(
+                    <Card key={i} col={cardsCol} height={cardsHeight} {...card}/>
+                )})}
+            </Grid>
+            { moreButton &&
+                <div className="more_container">
+                    { isCardsLoading ?
+                        <Box className="preload">
+                            <CircularProgress color="error" />
+                        </Box>
+                    :   typeof moreButton.action === 'string'
+                        ? <Link to={moreButton.action}><span>{moreButton.text}</span></Link>
+                        : <Link to={{}} onClick={(e)=>{
+                            e.preventDefault();
+                            setIsCardsLoading(true);
+                            if(typeof moreButton.action!=='string'){
+                                moreButton.action();
+                            }
+                        }}><span>{moreButton.text}</span></Link>
+                    }
+                </div>
+            }
+      </Box>
     );
   };
 

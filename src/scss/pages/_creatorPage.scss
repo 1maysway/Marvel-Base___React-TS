@@ -1,0 +1,17 @@
+@import '../variables';
+#creator_page {
+    padding: 24px;
+}
+
+.code404_container {
+    .code404_inner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .code404_text {
+            text-align: center;
+            font-size: 192px;
+            color: $white;
+        }
+    }
+}

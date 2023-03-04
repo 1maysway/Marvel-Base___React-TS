@@ -1,15 +1,100 @@
 @import '../variables';
 #main_page {
+    // margin-top: 80px;
     width: 100%;
-    background-color: $white;
-    #main_page_first_banner {
-        height: 500px;
-        width: 100%;
-        background-color: $black;
+    background-color: none;
+    z-index: 10;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .container {
+        // z-index: 30;
+        #main_page_first_banner {
+            height: 500px;
+            width: 100%;
+            background-color: $black;
+            position: relative;
+            overflow: visible;
+            .first_banner_container {
+                position: absolute;
+                height: inherit;
+                width: 100%;
+                // overflow: hidden;
+            }
+            z-index: 1;
+        }
+        #main_page_rec_comics {
+            height: 450px;
+            z-index: 100;
+            #main_page_rec_comics_inner {
+                // background-color: red;
+                // height: 500px;
+                // border: 1px solid $black;
+                background-color: $white;
+                // box-shadow: 0px -4px 50px 4px rgba(34, 60, 80, 0.2);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 24px;
+                width: 100%;
+                height: 100%;
+            }
+            .background {
+                position: absolute;
+                background-color: $white;
+                height: 500px;
+                width: 200%;
+                top: 800px;
+                left: 50%;
+                z-index: -1;
+                transform: translate(-50%, -50%) rotate(-2deg);
+                box-shadow: 0px -4px 100px 4px rgba(34, 60, 80, 0.2);
+            }
+            margin-bottom: 120px;
+        }
+        #main_page_rec_series {
+            padding: 24px;
+            width: 100%;
+            // height: 1000px;
+            // box-sizing: border-box;
+            // display: flex;
+            // justify-content: center;
+            // align-items: center;
+            #main_page_rec_series_inner {
+                // padding: 24px;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                .title_container {
+                    padding: 20px 0;
+                    width: 100%;
+                    .title {
+                        color: $black;
+                        font-size: 96px;
+                        margin: 0;
+                        transition: all 0.3s ease;
+                        &:hover {
+                            transform: translateX(10px);
+                        }
+                    }
+                }
+            }
+        }
     }
-    #main_page_rec_comics {
-        // background-color: red;
-        // height: 500px;
-        // border: 1px solid $black;
-    }
+}
+
+.preloader {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: $red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
 }

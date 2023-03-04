@@ -1,0 +1,115 @@
+@import '../variables';
+#search_page {
+    padding-top: 80px;
+    .result_container {
+        .result_inner {
+            .result_item {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 24px;
+                // max-height: 350px;
+                &:hover {
+                    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+                }
+                // height: 280px;
+                .link {
+                    height: 100%;
+                    width: 100%;
+                    text-decoration: none;
+                    color: $black;
+                    font-weight: 600;
+                    overflow: hidden;
+                    // box-sizing: border-box;
+                    .result_item_inner {
+                        // height: 100%;
+                        // width: 100%;
+                        display: flex;
+                        // justify-content: flex-end;
+                        align-items: start;
+                        flex-direction: row !important;
+                        // background-color: blue;
+                        .result_item_inner_image_container {
+                            // height: 100%;
+                            // width: 280px;
+                            // padding: 100px;
+                            background-color: red;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            img {
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                            }
+                        }
+                        .result_item_inner_body {
+                            // width: 100%;
+                            // height: 100%;
+                            // background-color: red;
+                            flex-grow: 3;
+                            .title_container {
+                                &:hover {
+                                    color: $red;
+                                }
+                                .title {
+                                    // @media (max-width: 576px) {
+                                    //     font-size: 16px;
+                                    // }
+                                    // @media (min-width: 576px) {
+                                    //     font-size: 24px;
+                                    // }
+                                    // font-size: 24px !important;
+                                }
+                            }
+                            .subtext_container {
+                                .subtext {
+                                    // @media (max-width: 576px) {
+                                    //     font-size: 8px;
+                                    // }
+                                    // @media (min-width: 576px) {
+                                    //     font-size: 12px;
+                                    // }
+                                    // font-size: 12px !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        #loadMore_button {
+            background-color: $white;
+            border: 0 !important;
+            font-size: 20px;
+            cursor: pointer;
+            &:hover {
+                background-color: $lightBlack;
+            }
+            padding: 12px;
+        }
+    }
+    .searchBar_container {
+        .result_buttons {
+            .result_buttons_container {
+                .result_button_container {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    .result_button {
+                        background-color: $white;
+                        border: 0 !important;
+                        &:hover {
+                            background-color: $lightBlack;
+                        }
+                        padding: 4px;
+                        &:focus {
+                            border: 0 !important;
+                        }
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+}

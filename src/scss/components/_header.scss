@@ -4,12 +4,19 @@
     @media (min-width: 900px) {
         height: 80px;
     }
+    width:100%;
+    position: fixed;
+    top: 0px;
+    z-index: 1000;
+    background-color: $black;
+    left: 0px;
     .container {
         height: 100%;
         display: flex;
         align-items: center;
         justify-content: space-between;
         background-color: $black;
+        top: 0px;
         @media (max-width: 645px) {
             flex-direction: column;
             .header__cart {
@@ -25,6 +32,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            text-decoration: none;
             &:hover {
                 .logo_text {
                     //background-color: $white;
@@ -61,7 +69,8 @@
             justify-content: center;
             align-items: center;
             a {
-                color: $white
+                color: $white;
+                font-weight: 600;
             }
             &:hover {
                 border-bottom: 4px solid $red;
@@ -70,6 +79,34 @@
                     //color: $red
                 }
             }
+        }
+        .grid_item_search {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            a {
+                color: $white;
+                font-weight: 600;
+                padding: 8px;
+            }
+        }
+    }
+}
+
+.burgerList {
+    li {
+        width: 100%;
+        &:hover {
+            a {
+                background-color: $lightBlack;
+            }
+        }
+        a {
+            width: 100%;
+            padding: 8px 12px;
+            color: $black;
+            font-weight: 600;
         }
     }
 }

@@ -1,4 +1,5 @@
 
+import { Box, CircularProgress } from '@mui/material';
 import React, {useState, useEffect, useRef, Ref, TransitionEventHandler, FC} from 'react';
 import useWindowSize from '../hooks/useWindowSize';
 
@@ -54,12 +55,14 @@ const Carousel:FC<CarouselProps> = ({slideWidth=350,slides,duration=30,columnSpa
     }
 
     useEffect(()=>{
+        const translateX=slides.length*(slideWidth+columnSpacing)*-1;
+        setCarouselInner((prev)=>{return({...prev,translateX})});
         setTimeout(()=>{
-            if(innerRef.current){
-                innerRef.current.style.transform=`translateX(${carouselInner.translateX}px)`;
+            if(innerRef.current && slides.length>0){
+                innerRef.current.style.transform=`translateX(${translateX}px)`;
             }
         },10)
-    },[])
+    },[slides])
 
     const SlidesComponent:FC<SlidesProps>=({slides})=>{
         return(
@@ -74,12 +77,19 @@ const Carousel:FC<CarouselProps> = ({slideWidth=350,slides,duration=30,columnSpa
             </>
         )
     }
+
+    // if(slides.length===0){
+    //     return(
+    //         <Box className='preload'><CircularProgress color='error'/></Box>
+    //     )
+    // }
+
   return (
     <div className='container'>
         <div className='carousel' style={{
             transform:rotate?`rotate(${Number.isInteger(rotate)?rotate+'deg':rotate})`:'',
             width:rotate?'120%':'100%',
-            height:rotateSplit?`${100+(rotateSplit*4*(rotateSplit<0?-1:1))}%`:'100%'}}>
+            height:rotateSplit?`${100+(rotateSplit*7*(rotateSplit<0?-1:1))}%`:'100%'}}>
             <div className='carousel_inner' style={{
                     transition:`transform ${duration}s linear`,
                     transform:`translateX(${carouselInner.left===0?0:carouselInner.translateX}px)`, 
@@ -88,8 +98,11 @@ const Carousel:FC<CarouselProps> = ({slideWidth=350,slides,duration=30,columnSpa
                 ref={innerRef}
                 onTransitionEnd={innerOnTransitionEnd}
             >
-                <SlidesComponent slides={slides}/>
-                <SlidesComponent slides={slides}/>
+                { slides.length>0 &&
+                    <>
+                        <SlidesComponent slides={slides.concat(slides)}/>
+                    </>
+                }
             </div>
         </div>
         {text && <div className='text' style={{
