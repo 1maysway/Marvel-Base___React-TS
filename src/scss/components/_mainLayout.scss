@@ -1,5 +1,7 @@
 @import '../_variables.scss';
 .wrapper {
+    // overflow-y: scroll;
+    position: relative;
     .container {
         overflow: visible;
         .content {

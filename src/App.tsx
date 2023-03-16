@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import {Route, Routes}from'react-router-dom'
+import {HashRouter, Route, Routes}from'react-router-dom'
 import MainLayout from './layouts/MainLayout';
 import CharacterPage from './pages/CharacterPage';
 import ComicPage from './pages/ComicPage';

@@ -6,6 +6,7 @@ import { Container } from '@mui/material';
 import Search from '../components/SearchComponent';
 import '../scss/components/_mainLayout.scss'
 import useCurrentLocation from '../hooks/useCurrentLocation';
+import ListenHtmlEvent from '../Utils/ListenHtmlEvent';
 
 
 const locations=[
@@ -27,6 +28,16 @@ const locations=[
 const MainLayout: React.FC = () => {
   const location = useLocation();
   const backgroundColor=locations.find((loc)=>location.pathname.includes(loc.includes))?.getColor(location.pathname)||'white';
+
+  useEffect(()=>{
+    const listenBeforeUnload=ListenHtmlEvent(window,'beforeunload',() => {
+      sessionStorage.clear();
+    })
+
+    return ()=>{
+      listenBeforeUnload.removeListener();
+    }
+  },[])
 
   return (
     <div className="wrapper" style={{backgroundColor,minWidth:'350px'}}>

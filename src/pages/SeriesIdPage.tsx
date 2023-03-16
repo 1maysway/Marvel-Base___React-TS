@@ -6,11 +6,14 @@ import { Link, To, useLocation } from "react-router-dom";
 import Preloader from "../components/Preloader";
 import { Slider } from "../components/Slider";
 import "../scss/pages/_seriesIdPage.scss";
+import CachedData from "../Utils/CachedData";
+import ListenHtmlEvent from "../Utils/ListenHtmlEvent";
 
 type Result = {
   title: string;
   description: string;
   modified: string;
+  id:number;
   textObjects: [
     {
       type: string;
@@ -181,7 +184,8 @@ function SeriesIdPage() {
       resourceURI: dataResult.resourceURI,
       rating: dataResult.rating,
       startYear: dataResult.startYear,
-      endYear: dataResult.endYear
+      endYear: dataResult.endYear,
+      id:dataResult.id
     };
     setFetchAttempts(prev=>({...prev,result:true}));
     return res;
@@ -282,13 +286,13 @@ function SeriesIdPage() {
     return res;
   }
 
-  const fetchData = async () => {
+  const fetchData = async ():Promise<{result:Result|null,moreLikeThat:More|null,moreSeries:More|null}|null> => {
     setIsLoading(true);
 
     const id=parseInt(window.location.pathname.split("/").reverse()[0])||1;
     const resultResponse=await fetchResult(id);
     if(!resultResponse){
-      return;
+      return null;
     }
     setResult(resultResponse);
 
@@ -299,14 +303,39 @@ function SeriesIdPage() {
     
     const characters=resultResponse.characters.items.map((char)=>({id:char.resourceURI.split('/').reverse()[0],name:char.name})).slice(0,5);
     
-    const moreSeries = await fetchMoreSeriesByCharacters(characters);
-    setMoreSeries(moreSeries);
+    const moreSeriesResponse = await fetchMoreSeriesByCharacters(characters);
+    setMoreSeries(moreSeriesResponse);
+
+
+    return {result:resultResponse,moreLikeThat:moreLikeThatResponse,moreSeries:moreSeriesResponse}
   };
 
   useEffect(() => {
-    setSeriesId(parseInt(window.location.pathname.split("/").reverse()[0])||1);
-    fetchData();
-    window.scrollTo(0, 0)
+    const id=parseInt(window.location.pathname.split("/").reverse()[0])||1;
+    setSeriesId(id);
+    setIsLoading(true);
+
+    window.scrollTo(0, 0);
+    CachedData(
+      {
+        result:setResult,
+        moreLikeThat:setMoreLikeThat,
+        moreSeries:setMoreSeries
+      },
+      fetchData,
+      {
+        sessionItemKey:"seriesId_page_data",
+        cacheDuration_ms:120000,
+        compare:{
+          key:'result.id',
+          value:id
+        }
+      }
+    ).then(()=>{
+      setIsLoading(false);
+      setFetchAttempts({result:true,moreLikeThat:true,moreSeries:true});
+    });
+
   }, [location]);
 
   useEffect(()=>{

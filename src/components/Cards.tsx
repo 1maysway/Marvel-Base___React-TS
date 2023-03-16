@@ -63,7 +63,7 @@ const Cards: React.FC<CardsProps> = ({cards,spacing=0,cardsCol,cardsHeight,moreB
 
     if(cards.length===0){
         return(
-            <Box className='preload' marginTop={"100px"}><CircularProgress color='error'/></Box>
+            <Box className='preload' marginTop={"0px"}><CircularProgress color='error'/></Box>
         )
     }
 

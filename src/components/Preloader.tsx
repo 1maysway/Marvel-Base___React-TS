@@ -7,8 +7,6 @@ type PreloaderProps={
 }
 
 const Preloader:React.FC<PreloaderProps> = ({style,circularProgressColor='error'}) => {
-  console.log(style);
-  
   return (
     <div className="preloader" style={style}>
       <CircularProgress color={circularProgressColor} />
