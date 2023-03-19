@@ -13,26 +13,26 @@ import './scss/components/_all.scss';
 function App() {
   return (
     <Routes >
-      {/* <Route path="/" element={<MainLayout />} > */}
-        <Route path="/" element={<Main/>} />
+      <Route path="/" element={<MainLayout />} >
+        <Route path="" element={<Main/>} />
         <Route
-          path="/comics/:id"
+          path="comics/:id"
           element={<ComicPage/>}
         />
         <Route
-          path="/search"
+          path="search"
           element={<Search/>}
         />
         <Route
-          path="/series/:id"
+          path="series/:id"
           element={<SeriesIdPage/>}
         />
         <Route
-          path="/creators/:id"
+          path="creators/:id"
           element={<CreatorPage/>}
         />
         <Route
-          path="/characters/:id"
+          path="characters/:id"
           element={<CharacterPage/>}
         />
         <Route
@@ -43,7 +43,7 @@ function App() {
             </Suspense>
           }
         />
-      {/* </Route> */}
+      </Route>
     </Routes>
   )}
 
