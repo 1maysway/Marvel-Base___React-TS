@@ -28,14 +28,26 @@
 # CMD ["nginx", "-g", "daemon off;"]
 
 
-FROM node:18-alpine
+# Используем образ Node.js как базовый
+FROM node:alpine
 
+# Установка рабочей директории
 WORKDIR /app
 
+# Копирование package.json и package-lock.json для установки зависимостей
 COPY package*.json ./
 
-RUN npm install --silent
+# Установка зависимостей
+RUN npm install
 
+# Копирование файлов приложения в образ
 COPY . .
 
+# Определение переменной окружения для порта приложения
+ENV PORT=80
+
+# Открытие порта приложения в контейнере
+EXPOSE $PORT
+
+# Запуск приложения при старте контейнера
 CMD ["npm", "start"]
